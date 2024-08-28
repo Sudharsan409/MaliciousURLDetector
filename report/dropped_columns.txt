@@ -1,0 +1,6 @@
+Normalized_Dots_in_Domain
+Alphabets_in_URL
+Alphabet_ratio_in_URL
+Avg_word_len_in_URL
+Num_params
+TLD_len
