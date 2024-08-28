@@ -64,8 +64,18 @@ def count_www(url):
 
 def get_domain(url):
     try:
-        return urlparse(url).netloc
-    except Exception:
+        parsed_url = urlparse(url)
+        if not parsed_url.scheme or not parsed_url.netloc:
+            # If the URL is missing a scheme or netloc, it's likely malformed
+            raise ValueError("Malformed URL")
+        return parsed_url.netloc
+    except ValueError as e:
+        # Handle the case where the URL is malformed
+        print(f"Error: {e}")
+        return ''
+    except AttributeError:
+        # Handle the case where the URL is None or not a string
+        print("Error: URL is None or not a string")
         return ''
 
 
@@ -182,17 +192,37 @@ def avg_english_word_length(url):
 
 def path_length(url):
     try:
-        path = urlparse(url).path
+        # Parse the URL and extract the path
+        parsed_url = urlparse(url)
+        path = parsed_url.path
+
+        # Return the length of the path
         return len(path)
-    except Exception:
+    except ValueError:
+        # Handle the case where the URL is malformed
+        print("Error: Malformed URL")
+        return 0
+    except AttributeError:
+        # Handle the case where the URL is None or not a string
+        print("Error: URL is None or not a string")
         return 0
 
 
 def query_length(url):
     try:
-        query = urlparse(url).query
+        # Parse the URL and extract the query component
+        parsed_url = urlparse(url)
+        query = parsed_url.query
+
+        # Return the length of the query string
         return len(query)
-    except Exception:
+    except ValueError:
+        # Handle the case where the URL is malformed
+        print("Error: Malformed URL")
+        return 0
+    except AttributeError:
+        # Handle the case where the URL is None or not a string
+        print("Error: URL is None or not a string")
         return 0
 
 
